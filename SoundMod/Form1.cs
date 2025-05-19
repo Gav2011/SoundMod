@@ -24,8 +24,8 @@ namespace SoundMod
         private WaveInEvent waveIn;
         private BufferedWaveProvider waveProvider;
         private WasapiOut micOutputDevice;
-        private float micVolume = 1.0f; // Default mic volume is 100%
-
+        private float micVolume = 1.0f;
+        string[] supportedExtensions = new[] { ".mp3", ".wav", ".mkv", ".ogg", ".mp4", ".flac", ".aac", ".wma" };
         public Form1()
         {
             this.AllowDrop = true;
@@ -38,14 +38,17 @@ namespace SoundMod
             InitializeMicrophoneList();
             StartMic();
             LoadLoadout();
-            VersionInfomation();
+            VersionInformation();
+
         }
 
-        private void VersionInfomation()
+        private async void VersionInformation()
         {
             const string CurrentVersion = "1.0";
             const string VersionFileUrl = "https://raw.githubusercontent.com/Gav2011/Versions/refs/heads/main/SoundMod";
-            const string LatestReleaseUrl = "https://github.com/Gav2011/InfernoInjector/releases/latest/download/InfernoInjector.exe";
+            const string LatestReleaseUrl = "https://github.com/Gav2011/SoundMod/releases/latest/download/SoundMod.exe";
+
+            VersionTag.Text = $"Version {CurrentVersion}";
 
             try
             {
@@ -55,42 +58,39 @@ namespace SoundMod
 
                     if (latestVersion != CurrentVersion)
                     {
-                        MessageBoxResult result = MessageBox.Show(
+                        DialogResult result = MessageBox.Show(
                             $"A new version ({latestVersion}) is available.\nDo you want to update now?",
                             "Update Available",
-                            MessageBoxButton.YesNo,
-                            MessageBoxImage.Information);
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Information);
 
-                        if (result == MessageBoxResult.Yes)
+                        if (result == DialogResult.Yes)
                         {
-                            string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                            string exePath = Application.ExecutablePath;
                             string exeDir = Path.GetDirectoryName(exePath);
                             string updatePath = Path.Combine(exeDir, "SoundMod.exe");
                             string vbsPath = Path.Combine(exeDir, "update.vbs");
                             string vbs = $@"
 Set WshShell = CreateObject(""WScript.Shell"")
 WshShell.Run ""cmd /c taskkill /f /im SoundMod.exe"", 0, True
-WScript.Sleep 5000 ' Increased sleep time to ensure process is killed
+WScript.Sleep 5000
 Set fso = CreateObject(""Scripting.FileSystemObject"")
 If fso.FileExists(""{exePath}"") Then
     fso.DeleteFile ""{exePath}"", True
-Else
-    WshShell.Popup ""Old executable not found"", 0, ""Debug"", 0
 End If
 Set objXML = CreateObject(""WinHTTP.WinHTTPRequest.5.1"")
 objXML.Open ""GET"", ""{LatestReleaseUrl}"", False
 objXML.Send
 Set objStream = CreateObject(""ADODB.Stream"")
 objStream.Open
-objStream.Type = 1 ' Binary
+objStream.Type = 1
 objStream.Write objXML.ResponseBody
-objStream.SaveToFile ""{updatePath}"", 2 ' Overwrite
+objStream.SaveToFile ""{updatePath}"", 2
 objStream.Close
 WshShell.Run ""{updatePath}"", 0, False
 WScript.Sleep 2000
 fso.DeleteFile ""{vbsPath}"", True
 ";
-
                             File.WriteAllText(vbsPath, vbs);
                             Process.Start(new ProcessStartInfo
                             {
@@ -99,16 +99,17 @@ fso.DeleteFile ""{vbsPath}"", True
                                 CreateNoWindow = true,
                                 UseShellExecute = false
                             });
-                            Application.Current.Shutdown();
+                            Application.Exit();
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error checking for updates:\n{ex.Message}", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error checking for updates:\n{ex.Message}", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private string configPath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Options.txt");
         private void LoadLoadout()
@@ -284,19 +285,18 @@ fso.DeleteFile ""{vbsPath}"", True
                 comboBoxOutputDevices2.Items.Add(device.FriendlyName);
             }
 
-            comboBoxOutputDevices2.Items.Insert(0, "None"); // Add None as the first option
+            comboBoxOutputDevices2.Items.Insert(0, "None");
 
             if (devices.Count > 0)
             {
                 comboBoxOutputDevices.SelectedIndex = 0;
-                comboBoxOutputDevices2.SelectedIndex = 0; // default to None
+                comboBoxOutputDevices2.SelectedIndex = 0;
                 selectedDevice = devices[0];
             }
 
             comboBoxOutputDevices.SelectedIndexChanged += ComboBoxOutputDevices_SelectedIndexChanged;
             comboBoxOutputDevices2.SelectedIndexChanged += (s, e) =>
             {
-                // Optional: Add logic to react when the second device is changed
             };
         }
 
@@ -342,8 +342,9 @@ fso.DeleteFile ""{vbsPath}"", True
             }
 
             var soundFiles = Directory.GetFiles(soundDirectory)
-                .Where(f => f.EndsWith(".mp3") || f.EndsWith(".wav") || f.EndsWith(".mkv"))
+                .Where(f => supportedExtensions.Contains(Path.GetExtension(f).ToLowerInvariant()))
                 .ToArray();
+
 
             soundPanel.Controls.Clear();
 
@@ -396,7 +397,6 @@ fso.DeleteFile ""{vbsPath}"", True
                     };
                 }
 
-                // First selected device
                 if (comboBoxOutputDevices.SelectedIndex >= 0)
                 {
                     var deviceName = comboBoxOutputDevices.SelectedItem.ToString();
@@ -406,7 +406,6 @@ fso.DeleteFile ""{vbsPath}"", True
                         PlayToDevice(device);
                 }
 
-                // Second selected device (if not None)
                 if (comboBoxOutputDevices2.SelectedItem?.ToString() != "None")
                 {
                     var deviceName2 = comboBoxOutputDevices2.SelectedItem.ToString();
@@ -480,10 +479,18 @@ fso.DeleteFile ""{vbsPath}"", True
 
             foreach (string file in files)
             {
-                if (file.EndsWith(".mp3") || file.EndsWith(".wav") || file.EndsWith(".mkv"))
+                string ext = Path.GetExtension(file).ToLowerInvariant();
+                if (supportedExtensions.Contains(ext))
                 {
-                    string destPath = Path.Combine(soundDirectory, Path.GetFileName(file));
-                    File.Copy(file, destPath, true);
+                    try
+                    {
+                        string destPath = Path.Combine(soundDirectory, Path.GetFileName(file));
+                        File.Copy(file, destPath, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error copying file: {file}\n{ex.Message}", "Copy Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
 
@@ -546,6 +553,11 @@ fso.DeleteFile ""{vbsPath}"", True
                     MessageBox.Show("Not found in startup.");
                 }
             }
+        }
+
+        private void playButton_Click(object sender, EventArgs e)
+        {
+            SaveLoadout();
         }
     }
 }

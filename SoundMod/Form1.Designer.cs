@@ -114,9 +114,9 @@
             this.VersionTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VersionTag.Location = new System.Drawing.Point(626, 170);
             this.VersionTag.Name = "VersionTag";
-            this.VersionTag.Size = new System.Drawing.Size(89, 20);
+            this.VersionTag.Size = new System.Drawing.Size(94, 20);
             this.VersionTag.TabIndex = 20;
-            this.VersionTag.Text = "Version 1.0";
+            this.VersionTag.Text = "Version ???";
             // 
             // label5
             // 
@@ -213,6 +213,7 @@
             this.playButton.Size = new System.Drawing.Size(100, 40);
             this.playButton.TabIndex = 1;
             this.playButton.Text = "Play";
+            this.playButton.Click += new System.EventHandler(this.playButton_Click);
             // 
             // stopButton
             // 
