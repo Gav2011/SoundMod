@@ -5,6 +5,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
@@ -26,6 +28,8 @@ namespace SoundMod
         private WasapiOut micOutputDevice;
         private float micVolume = 1.0f;
         string[] supportedExtensions = new[] { ".mp3", ".wav", ".mkv", ".ogg", ".mp4", ".flac", ".aac", ".wma" };
+        public static DateTime AppStartTime = DateTime.UtcNow;
+
         public Form1()
         {
             this.AllowDrop = true;
@@ -38,6 +42,7 @@ namespace SoundMod
             InitializeMicrophoneList();
             StartMic();
             LoadLoadout();
+            StartDiscord();
             VersionInformation();
 
         }
@@ -394,6 +399,11 @@ fso.DeleteFile ""{vbsPath}"", True
                         audioFile.Dispose();
                         activeOutputs.Remove(outputDevice);
                         activeAudioFiles.Remove(audioFile);
+
+                        if (activeOutputs.Count == 0 && !isPaused)
+                        {
+                            StartDiscord();
+                        }
                     };
                 }
 
@@ -417,6 +427,12 @@ fso.DeleteFile ""{vbsPath}"", True
 
                 lastPlayedFilePath = filePath;
                 isPaused = false;
+
+                string songName = Path.GetFileNameWithoutExtension(filePath);
+                using (var tempReader = new AudioFileReader(filePath))
+                {
+                    UpdatePresence(songName);
+                }
             }
             catch (Exception ex)
             {
@@ -555,9 +571,157 @@ fso.DeleteFile ""{vbsPath}"", True
             }
         }
 
+        private void StartDiscord()
+        {
+            ExtractDiscordRpcDll();
+            InitializeDiscord();
+            UpdatePresence2();
+        }
+
+        private void UpdateDiscord(string songName, TimeSpan totalDuration)
+        {
+            InitializeDiscord();
+            UpdatePresence(songName);
+        }   
+
         private void playButton_Click(object sender, EventArgs e)
         {
             SaveLoadout();
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        public struct DiscordRichPresence
+        {
+            public string state;
+            public string details;
+            public long startTimestamp;
+            public long endTimestamp;
+            public string largeImageKey;
+            public string largeImageText;
+            public string smallImageKey;
+            public string smallImageText;
+            public string partyId;
+            public int partySize;
+            public int partyMax;
+            public string matchSecret;
+            public string joinSecret;
+            public string spectateSecret;
+            public bool instance;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct DiscordEventHandlers
+        {
+            public IntPtr ready;
+            public IntPtr disconnected;
+            public IntPtr errored;
+        }
+
+        [DllImport("discord-rpc.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Discord_Initialize(
+            [MarshalAs(UnmanagedType.LPStr)] string applicationId,
+            ref DiscordEventHandlers handlers,
+            bool autoRegister,
+            [MarshalAs(UnmanagedType.LPStr)] string optionalSteamId);
+
+        [DllImport("discord-rpc.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Discord_UpdatePresence(ref DiscordRichPresence presence);
+
+        [DllImport("discord-rpc.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Discord_Shutdown();
+
+        public static void InitializeDiscord()
+        {
+            try
+            {
+                DiscordEventHandlers handlers = new DiscordEventHandlers();
+                Discord_Initialize("1373882277976866946", ref handlers, true, null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error initializing Discord: " + ex.Message);
+            }
+        }
+
+        public static void UpdatePresence2()
+        {
+            try
+            {
+                long startTimestamp = ((DateTimeOffset)AppStartTime).ToUnixTimeSeconds();
+                DiscordRichPresence presence = new DiscordRichPresence
+                {
+                    largeImageKey = "soundmodlogo",
+                    startTimestamp = startTimestamp,
+                    endTimestamp = 0,
+                };
+                Discord_UpdatePresence(ref presence);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error updating Discord presence: " + ex.Message);
+            }
+        }
+
+        public static void UpdatePresence(string songName)
+        {
+            try
+            {
+                long startTimestamp = ((DateTimeOffset)AppStartTime).ToUnixTimeSeconds();
+                DiscordRichPresence presence = new DiscordRichPresence
+                {
+                    details = $"Playing {songName}",
+                    largeImageKey = "soundmodlogo",
+                    startTimestamp = startTimestamp,
+                    endTimestamp = 0,
+                };
+                Discord_UpdatePresence(ref presence);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error updating Discord presence: " + ex.Message);
+            }
+        }
+
+        public static void ShutdownDiscord()
+        {
+            try
+            {
+                Console.WriteLine("Shutting down Discord...");
+                Discord_Shutdown();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error shutting down Discord: " + ex.Message);
+            }
+        }
+
+        public static void ExtractDiscordRpcDll()
+        {
+            string outputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "discord-rpc.dll");
+            if (!File.Exists(outputPath))
+            {
+                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SoundMod.discord-rpc.dll"))
+                {
+                    if (stream == null)
+                    {
+                        throw new Exception("Embedded discord-rpc.dll resource not found.");
+                    }
+                    using (FileStream fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write))
+                    {
+                        stream.CopyTo(fileStream);
+                        Console.WriteLine("Made discord rpc dll file");
+                    }
+                }
+            }
+        }
+
+        private void stopButton_Click(object sender, EventArgs e)
+        {
+            StartDiscord();
+        }
+
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+            StartDiscord();
         }
     }
 }

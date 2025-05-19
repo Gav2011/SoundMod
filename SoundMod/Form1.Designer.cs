@@ -15,7 +15,7 @@
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.comboBoxOutputDevices = new System.Windows.Forms.ComboBox();
             this.comboBoxMicrophones = new System.Windows.Forms.ComboBox();
             this.soundPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -36,7 +36,6 @@
             this.stopButton = new System.Windows.Forms.Button();
             this.pauseButton = new System.Windows.Forms.Button();
             this.volumeControl = new System.Windows.Forms.TrackBar();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.groupBoxControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MicVolControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.volumeControl)).BeginInit();
@@ -222,6 +221,7 @@
             this.stopButton.Size = new System.Drawing.Size(100, 40);
             this.stopButton.TabIndex = 2;
             this.stopButton.Text = "Stop";
+            this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
             // 
             // pauseButton
             // 
@@ -230,6 +230,7 @@
             this.pauseButton.Size = new System.Drawing.Size(100, 40);
             this.pauseButton.TabIndex = 3;
             this.pauseButton.Text = "Pause";
+            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
             // volumeControl
             // 
@@ -240,11 +241,6 @@
             this.volumeControl.TabIndex = 4;
             this.volumeControl.Value = 50;
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,6 +248,7 @@
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.soundPanel);
             this.Controls.Add(this.groupBoxControls);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "SoundMod";
             this.groupBoxControls.ResumeLayout(false);
@@ -263,7 +260,6 @@
         }
 
         private System.Windows.Forms.TrackBar MicVolControl;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button Startup;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Nostartup;
