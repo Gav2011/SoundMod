@@ -29,6 +29,7 @@ namespace SoundMod
         private float micVolume = 1.0f;
         string[] supportedExtensions = new[] { ".mp3", ".wav", ".mkv", ".ogg", ".mp4", ".flac", ".aac", ".wma" };
         public static DateTime AppStartTime = DateTime.UtcNow;
+        private bool isSpamModeOn = false;
 
         public Form1()
         {
@@ -44,7 +45,8 @@ namespace SoundMod
             LoadLoadout();
             StartDiscord();
             VersionInformation();
-
+            isSpamModeOn = false;
+            SpamModeLabel.Text = "Spam Mode: Off";
         }
 
         private async void VersionInformation()
@@ -381,6 +383,11 @@ fso.DeleteFile ""{vbsPath}"", True
         {
             try
             {
+                if (!isSpamModeOn)
+                {
+                    StopSound();
+                }
+
                 var volume = volumeControl.Value / 100f;
 
                 void PlayToDevice(MMDevice device)
@@ -588,6 +595,7 @@ fso.DeleteFile ""{vbsPath}"", True
         {
             SaveLoadout();
         }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct DiscordRichPresence
         {
@@ -722,6 +730,11 @@ fso.DeleteFile ""{vbsPath}"", True
         private void pauseButton_Click(object sender, EventArgs e)
         {
             StartDiscord();
+        }
+        private void BtnSpamMode_Click(object sender, EventArgs e)
+        {
+            isSpamModeOn = !isSpamModeOn;
+            SpamModeLabel.Text = $"Spam Mode: {(isSpamModeOn ? "On" : "Off")}";
         }
     }
 }

@@ -20,12 +20,11 @@
             this.comboBoxMicrophones = new System.Windows.Forms.ComboBox();
             this.soundPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBoxControls = new System.Windows.Forms.GroupBox();
+            this.ah = new System.Windows.Forms.Label();
+            this.SpamModeLabel = new System.Windows.Forms.Label();
+            this.BtnSpamMode = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.VersionTag = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.comboBoxOutputDevices2 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Nostartup = new System.Windows.Forms.Button();
@@ -44,7 +43,7 @@
             // comboBoxOutputDevices
             // 
             this.comboBoxOutputDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOutputDevices.Location = new System.Drawing.Point(10, 30);
+            this.comboBoxOutputDevices.Location = new System.Drawing.Point(10, 42);
             this.comboBoxOutputDevices.Name = "comboBoxOutputDevices";
             this.comboBoxOutputDevices.Size = new System.Drawing.Size(200, 21);
             this.comboBoxOutputDevices.TabIndex = 0;
@@ -52,7 +51,7 @@
             // comboBoxMicrophones
             // 
             this.comboBoxMicrophones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMicrophones.Location = new System.Drawing.Point(220, 30);
+            this.comboBoxMicrophones.Location = new System.Drawing.Point(220, 42);
             this.comboBoxMicrophones.Name = "comboBoxMicrophones";
             this.comboBoxMicrophones.Size = new System.Drawing.Size(200, 21);
             this.comboBoxMicrophones.TabIndex = 1;
@@ -61,7 +60,7 @@
             // 
             this.soundPanel.AutoScroll = true;
             this.soundPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.soundPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.soundPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.soundPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.soundPanel.Location = new System.Drawing.Point(0, 0);
             this.soundPanel.Name = "soundPanel";
@@ -71,12 +70,11 @@
             // 
             // groupBoxControls
             // 
+            this.groupBoxControls.Controls.Add(this.ah);
+            this.groupBoxControls.Controls.Add(this.SpamModeLabel);
+            this.groupBoxControls.Controls.Add(this.BtnSpamMode);
             this.groupBoxControls.Controls.Add(this.label7);
             this.groupBoxControls.Controls.Add(this.VersionTag);
-            this.groupBoxControls.Controls.Add(this.label5);
-            this.groupBoxControls.Controls.Add(this.label4);
-            this.groupBoxControls.Controls.Add(this.label3);
-            this.groupBoxControls.Controls.Add(this.label2);
             this.groupBoxControls.Controls.Add(this.comboBoxOutputDevices2);
             this.groupBoxControls.Controls.Add(this.label1);
             this.groupBoxControls.Controls.Add(this.Nostartup);
@@ -98,6 +96,33 @@
             this.groupBoxControls.TabStop = false;
             this.groupBoxControls.Text = "Audio Controls";
             // 
+            // ah
+            // 
+            this.ah.AutoSize = true;
+            this.ah.Location = new System.Drawing.Point(34, 26);
+            this.ah.Name = "ah";
+            this.ah.Size = new System.Drawing.Size(153, 13);
+            this.ah.TabIndex = 24;
+            this.ah.Text = "Second audio ouput is delayed";
+            // 
+            // SpamModeLabel
+            // 
+            this.SpamModeLabel.AutoSize = true;
+            this.SpamModeLabel.Location = new System.Drawing.Point(445, 131);
+            this.SpamModeLabel.Name = "SpamModeLabel";
+            this.SpamModeLabel.Size = new System.Drawing.Size(88, 13);
+            this.SpamModeLabel.TabIndex = 23;
+            this.SpamModeLabel.Text = "Spam Mode: ???";
+            // 
+            // BtnSpamMode
+            // 
+            this.BtnSpamMode.Location = new System.Drawing.Point(432, 147);
+            this.BtnSpamMode.Name = "BtnSpamMode";
+            this.BtnSpamMode.Size = new System.Drawing.Size(114, 40);
+            this.BtnSpamMode.TabIndex = 22;
+            this.BtnSpamMode.Text = "Spam Mode";
+            this.BtnSpamMode.Click += new System.EventHandler(this.BtnSpamMode_Click);
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -111,52 +136,16 @@
             // 
             this.VersionTag.AutoSize = true;
             this.VersionTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VersionTag.Location = new System.Drawing.Point(626, 170);
+            this.VersionTag.Location = new System.Drawing.Point(622, 173);
             this.VersionTag.Name = "VersionTag";
             this.VersionTag.Size = new System.Drawing.Size(94, 20);
             this.VersionTag.TabIndex = 20;
             this.VersionTag.Text = "Version ???";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(544, 116);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(157, 13);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "talk and play music at the ouput";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(480, 102);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(315, 13);
-            this.label4.TabIndex = 18;
-            this.label4.Text = "and it will show up now choess you input and output and you can";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(480, 89);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(296, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = " Drag and drop music files into here (eg, mp3, mkv, ogg, mp4)";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(589, 75);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "To Get Started";
-            // 
             // comboBoxOutputDevices2
             // 
             this.comboBoxOutputDevices2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOutputDevices2.Location = new System.Drawing.Point(10, 57);
+            this.comboBoxOutputDevices2.Location = new System.Drawing.Point(10, 69);
             this.comboBoxOutputDevices2.Name = "comboBoxOutputDevices2";
             this.comboBoxOutputDevices2.Size = new System.Drawing.Size(200, 21);
             this.comboBoxOutputDevices2.TabIndex = 12;
@@ -164,7 +153,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(688, 14);
+            this.label1.Location = new System.Drawing.Point(689, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 13);
             this.label1.TabIndex = 11;
@@ -172,7 +161,7 @@
             // 
             // Nostartup
             // 
-            this.Nostartup.Location = new System.Drawing.Point(688, 30);
+            this.Nostartup.Location = new System.Drawing.Point(688, 29);
             this.Nostartup.Name = "Nostartup";
             this.Nostartup.Size = new System.Drawing.Size(100, 21);
             this.Nostartup.TabIndex = 10;
@@ -181,7 +170,7 @@
             // 
             // Startup
             // 
-            this.Startup.Location = new System.Drawing.Point(582, 29);
+            this.Startup.Location = new System.Drawing.Point(582, 30);
             this.Startup.Name = "Startup";
             this.Startup.Size = new System.Drawing.Size(100, 21);
             this.Startup.TabIndex = 9;
@@ -190,7 +179,7 @@
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(340, 126);
+            this.refreshButton.Location = new System.Drawing.Point(326, 148);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(100, 40);
             this.refreshButton.TabIndex = 6;
@@ -198,7 +187,7 @@
             // 
             // MicVolControl
             // 
-            this.MicVolControl.Location = new System.Drawing.Point(216, 57);
+            this.MicVolControl.Location = new System.Drawing.Point(216, 69);
             this.MicVolControl.Maximum = 100;
             this.MicVolControl.Name = "MicVolControl";
             this.MicVolControl.Size = new System.Drawing.Size(200, 45);
@@ -207,7 +196,7 @@
             // 
             // playButton
             // 
-            this.playButton.Location = new System.Drawing.Point(10, 126);
+            this.playButton.Location = new System.Drawing.Point(10, 147);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(100, 40);
             this.playButton.TabIndex = 1;
@@ -216,7 +205,7 @@
             // 
             // stopButton
             // 
-            this.stopButton.Location = new System.Drawing.Point(120, 126);
+            this.stopButton.Location = new System.Drawing.Point(116, 147);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(100, 40);
             this.stopButton.TabIndex = 2;
@@ -225,7 +214,7 @@
             // 
             // pauseButton
             // 
-            this.pauseButton.Location = new System.Drawing.Point(230, 126);
+            this.pauseButton.Location = new System.Drawing.Point(220, 147);
             this.pauseButton.Name = "pauseButton";
             this.pauseButton.Size = new System.Drawing.Size(100, 40);
             this.pauseButton.TabIndex = 3;
@@ -234,7 +223,7 @@
             // 
             // volumeControl
             // 
-            this.volumeControl.Location = new System.Drawing.Point(10, 84);
+            this.volumeControl.Location = new System.Drawing.Point(10, 96);
             this.volumeControl.Maximum = 100;
             this.volumeControl.Name = "volumeControl";
             this.volumeControl.Size = new System.Drawing.Size(200, 45);
@@ -264,11 +253,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Nostartup;
         private System.Windows.Forms.ComboBox comboBoxOutputDevices2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label VersionTag;
+        private System.Windows.Forms.Label SpamModeLabel;
+        private System.Windows.Forms.Button BtnSpamMode;
+        private System.Windows.Forms.Label ah;
     }
 }
