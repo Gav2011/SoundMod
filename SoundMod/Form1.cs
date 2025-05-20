@@ -51,7 +51,7 @@ namespace SoundMod
 
         private async void VersionInformation()
         {
-            const string CurrentVersion = "1.0";
+            const string CurrentVersion = "1.1";
             const string VersionFileUrl = "https://raw.githubusercontent.com/Gav2011/Versions/refs/heads/main/SoundMod";
             const string LatestReleaseUrl = "https://github.com/Gav2011/SoundMod/releases/latest/download/SoundMod.exe";
 
@@ -340,6 +340,12 @@ fso.DeleteFile ""{vbsPath}"", True
                 return CreateBlackIcon();
             }
         }
+        private void SoundButton_Click(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            string filePath = (string)button.Tag;
+            PlaySound(filePath);
+        }
 
         private void LoadSoundButtons()
         {
@@ -351,7 +357,6 @@ fso.DeleteFile ""{vbsPath}"", True
             var soundFiles = Directory.GetFiles(soundDirectory)
                 .Where(f => supportedExtensions.Contains(Path.GetExtension(f).ToLowerInvariant()))
                 .ToArray();
-
 
             soundPanel.Controls.Clear();
 
@@ -374,10 +379,14 @@ fso.DeleteFile ""{vbsPath}"", True
                     Tag = file
                 };
 
-                btn.Click += (s, e) => PlaySound((string)((Button)s).Tag);
+                // Remove any existing handler just in case (safety)
+                btn.Click -= SoundButton_Click;
+                btn.Click += SoundButton_Click;
+
                 soundPanel.Controls.Add(btn);
             }
         }
+
 
         private void PlaySound(string filePath)
         {
