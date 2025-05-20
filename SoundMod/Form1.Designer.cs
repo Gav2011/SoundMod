@@ -35,6 +35,7 @@
             this.stopButton = new System.Windows.Forms.Button();
             this.pauseButton = new System.Windows.Forms.Button();
             this.volumeControl = new System.Windows.Forms.TrackBar();
+            this.SoundFolder = new System.Windows.Forms.Button();
             this.groupBoxControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MicVolControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.volumeControl)).BeginInit();
@@ -70,6 +71,7 @@
             // 
             // groupBoxControls
             // 
+            this.groupBoxControls.Controls.Add(this.SoundFolder);
             this.groupBoxControls.Controls.Add(this.ah);
             this.groupBoxControls.Controls.Add(this.SpamModeLabel);
             this.groupBoxControls.Controls.Add(this.BtnSpamMode);
@@ -153,7 +155,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(689, 13);
+            this.label1.Location = new System.Drawing.Point(688, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 13);
             this.label1.TabIndex = 11;
@@ -161,7 +163,7 @@
             // 
             // Nostartup
             // 
-            this.Nostartup.Location = new System.Drawing.Point(688, 29);
+            this.Nostartup.Location = new System.Drawing.Point(688, 18);
             this.Nostartup.Name = "Nostartup";
             this.Nostartup.Size = new System.Drawing.Size(100, 21);
             this.Nostartup.TabIndex = 10;
@@ -170,7 +172,7 @@
             // 
             // Startup
             // 
-            this.Startup.Location = new System.Drawing.Point(582, 30);
+            this.Startup.Location = new System.Drawing.Point(582, 19);
             this.Startup.Name = "Startup";
             this.Startup.Size = new System.Drawing.Size(100, 21);
             this.Startup.TabIndex = 9;
@@ -230,6 +232,15 @@
             this.volumeControl.TabIndex = 4;
             this.volumeControl.Value = 50;
             // 
+            // SoundFolder
+            // 
+            this.SoundFolder.Location = new System.Drawing.Point(476, 19);
+            this.SoundFolder.Name = "SoundFolder";
+            this.SoundFolder.Size = new System.Drawing.Size(100, 21);
+            this.SoundFolder.TabIndex = 25;
+            this.SoundFolder.Text = "SoundFolder";
+            this.SoundFolder.Click += new System.EventHandler(this.SoundFolder_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -258,5 +269,6 @@
         private System.Windows.Forms.Label SpamModeLabel;
         private System.Windows.Forms.Button BtnSpamMode;
         private System.Windows.Forms.Label ah;
+        private System.Windows.Forms.Button SoundFolder;
     }
 }

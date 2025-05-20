@@ -745,5 +745,20 @@ fso.DeleteFile ""{vbsPath}"", True
             isSpamModeOn = !isSpamModeOn;
             SpamModeLabel.Text = $"Spam Mode: {(isSpamModeOn ? "On" : "Off")}";
         }
+
+        private void SoundFolder_Click(object sender, EventArgs e)
+        {
+            string exePath = AppDomain.CurrentDomain.BaseDirectory;
+            string soundBoardPath = Path.Combine(exePath, "SoundBoard");
+            if (Directory.Exists(soundBoardPath))
+            {
+                System.Diagnostics.Process.Start("explorer.exe", soundBoardPath);
+            }
+            else
+            {
+                MessageBox.Show($"The folder '{soundBoardPath}' does not exist.", "Folder Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
     }
 }
