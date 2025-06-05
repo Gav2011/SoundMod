@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -51,7 +51,7 @@ namespace SoundMod
 
         private async void VersionInformation()
         {
-            const string CurrentVersion = "1.1";
+            const string CurrentVersion = "1.3";
             const string VersionFileUrl = "https://raw.githubusercontent.com/Gav2011/Versions/refs/heads/main/SoundMod";
             const string LatestReleaseUrl = "https://github.com/Gav2011/SoundMod/releases/latest/download/SoundMod.exe";
 
@@ -379,14 +379,12 @@ fso.DeleteFile ""{vbsPath}"", True
                     Tag = file
                 };
 
-                // Remove any existing handler just in case (safety)
                 btn.Click -= SoundButton_Click;
                 btn.Click += SoundButton_Click;
 
                 soundPanel.Controls.Add(btn);
             }
         }
-
 
         private void PlaySound(string filePath)
         {

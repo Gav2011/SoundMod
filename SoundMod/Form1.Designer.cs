@@ -4,7 +4,7 @@
     {
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.ComboBox comboBoxOutputDevices;
-        private System.Windows.Forms.ComboBox comboBoxMicrophones;  // Microphone comboBox
+        private System.Windows.Forms.ComboBox comboBoxMicrophones;
         private System.Windows.Forms.FlowLayoutPanel soundPanel;
         private System.Windows.Forms.GroupBox groupBoxControls;
         private System.Windows.Forms.Button playButton;
@@ -20,6 +20,7 @@
             this.comboBoxMicrophones = new System.Windows.Forms.ComboBox();
             this.soundPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBoxControls = new System.Windows.Forms.GroupBox();
+            this.SoundFolder = new System.Windows.Forms.Button();
             this.ah = new System.Windows.Forms.Label();
             this.SpamModeLabel = new System.Windows.Forms.Label();
             this.BtnSpamMode = new System.Windows.Forms.Button();
@@ -35,7 +36,6 @@
             this.stopButton = new System.Windows.Forms.Button();
             this.pauseButton = new System.Windows.Forms.Button();
             this.volumeControl = new System.Windows.Forms.TrackBar();
-            this.SoundFolder = new System.Windows.Forms.Button();
             this.groupBoxControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MicVolControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.volumeControl)).BeginInit();
@@ -62,12 +62,10 @@
             this.soundPanel.AutoScroll = true;
             this.soundPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.soundPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.soundPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.soundPanel.Location = new System.Drawing.Point(0, 0);
             this.soundPanel.Name = "soundPanel";
             this.soundPanel.Size = new System.Drawing.Size(800, 400);
             this.soundPanel.TabIndex = 0;
-            this.soundPanel.WrapContents = false;
             // 
             // groupBoxControls
             // 
@@ -97,6 +95,15 @@
             this.groupBoxControls.TabIndex = 1;
             this.groupBoxControls.TabStop = false;
             this.groupBoxControls.Text = "Audio Controls";
+            // 
+            // SoundFolder
+            // 
+            this.SoundFolder.Location = new System.Drawing.Point(476, 19);
+            this.SoundFolder.Name = "SoundFolder";
+            this.SoundFolder.Size = new System.Drawing.Size(100, 21);
+            this.SoundFolder.TabIndex = 25;
+            this.SoundFolder.Text = "SoundFolder";
+            this.SoundFolder.Click += new System.EventHandler(this.SoundFolder_Click);
             // 
             // ah
             // 
@@ -231,15 +238,6 @@
             this.volumeControl.Size = new System.Drawing.Size(200, 45);
             this.volumeControl.TabIndex = 4;
             this.volumeControl.Value = 50;
-            // 
-            // SoundFolder
-            // 
-            this.SoundFolder.Location = new System.Drawing.Point(476, 19);
-            this.SoundFolder.Name = "SoundFolder";
-            this.SoundFolder.Size = new System.Drawing.Size(100, 21);
-            this.SoundFolder.TabIndex = 25;
-            this.SoundFolder.Text = "SoundFolder";
-            this.SoundFolder.Click += new System.EventHandler(this.SoundFolder_Click);
             // 
             // Form1
             // 
