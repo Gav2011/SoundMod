@@ -1,6 +1,6 @@
 Its a soundboard!!! as a warning it will sound vary low quality in discord so there are some settings you need to change
 You will need
-- virtual microphone [Link](https://vb-audio.com/Cable/) [Download](https://download.vb-audio.com/Download_CABLE/VBCABLE_Driver_Pack45.zip)
+- virtual microphone [Link](https://vb-audio.com/Cable/) [Download](https://download.vb-audio.com/Download_CABLE/VBCABLE_Driver_Pack45.zip) note: driver and the exe is signed
 
 ![image](https://github.com/user-attachments/assets/bb6f303a-89d0-45e4-a815-344c90f184ab)
 
