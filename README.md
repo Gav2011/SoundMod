@@ -48,7 +48,10 @@ By default, Discord compresses audio which makes soundboard output sound bad.
 
 ## Issues & Feedback
 
-Found a bug or have a suggestion? [Open an issue](https://github.com/Gav2011/SoundMod/issues) on GitHub.
+Found a bug or have a suggestion? Join us on Discord! it's the best place to get support, report issues, and share feedback.
+
+- **ModemINC server:** [discord.com/invite/5VrMgCxemp](https://discord.com/invite/5VrMgCxemp)
+- **SoundMod server:** [discord.com/invite/Cnm4PpmZgQ](https://discord.com/invite/Cnm4PpmZgQ)
 
 ---
 
