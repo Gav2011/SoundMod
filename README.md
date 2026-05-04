@@ -31,7 +31,7 @@ Grab the latest version from **[modeminc.com/soundmod](http://modeminc.com/sound
 
 By default, Discord compresses audio which makes soundboard output sound bad.
 
-**User Settings → Voice & Video**
+**User Settings > Voice & Video**
 
 ![Discord Audio Settings](https://raw.githubusercontent.com/Gav2011/SoundMod/refs/heads/master/Screenshot%202026-02-15%20014041.png)
 
