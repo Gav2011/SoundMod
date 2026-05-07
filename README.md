@@ -2,7 +2,7 @@
   
 <img src="https://raw.githubusercontent.com/Gav2011/SoundMod/refs/heads/master/soundmod.png" alt="SoundMod Banner" width="800"/>
 
----
+# SoundMod
 
 **A Soundboard app that plays sounds anywhere use it with voice chats, games, streams, or any app.**
 
