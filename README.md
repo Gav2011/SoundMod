@@ -1,11 +1,10 @@
 <div align="center">
+  
+<img src="https://raw.githubusercontent.com/Gav2011/SoundMod/refs/heads/master/soundmod.png" alt="SoundMod Banner" width="800"/>
 
-# SoundMod
+---
 
 **A Soundboard app that plays sounds anywhere use it with voice chats, games, streams, or any app.**
-
-[![Download](https://img.shields.io/badge/Download-Latest%20Release-brightgreen?style=for-the-badge)](http://modeminc.com/soundmod)
-[![Platform](https://img.shields.io/badge/Platform-Windows-blue?style=for-the-badge&logo=windows)]()
 
 ![SoundMod Main UI](https://raw.githubusercontent.com/Gav2011/SoundMod/refs/heads/master/Screenshot%202026-05-04%20112604.png)
 
