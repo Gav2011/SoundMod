@@ -24,7 +24,9 @@ SoundMod is a soundboard app that lets you play audio clips system wide for use 
 
 ### 1. Download & Install
 
-Grab the latest version from **[modeminc.com/soundmod](http://modeminc.com/soundmod)** and run the installer.
+| Platform | Download |
+|-----------|------------|
+|  Windows | [ModemInstaller.exe](https://cdn.modeminc.com/ModemInstaller.exe) |
 
 ### 2. Fix Audio Quality in Discord
 
